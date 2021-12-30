@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: just-another-deployment
+  labels:
+    kyverno.dok8s.wowza/label-needed: yesyesyes
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      kyverno.dok8s.wowza/label-needed: yesyesyes
+  template:
+    metadata:
+      labels:
+        kyverno.dok8s.wowza/label-needed: yesyesyes
+    spec:
+      containers:
+      - name: some-container
+        image: registry.digitalocean.com/wowzawowzadocr/some-image:tag1
+      - name: another-container
+        image: registry.digitalocean.com/wowzawowzadocr/some-image:tag2

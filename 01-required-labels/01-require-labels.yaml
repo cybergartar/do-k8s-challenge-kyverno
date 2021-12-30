@@ -1,0 +1,23 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-labels
+spec:
+  # You can choose what to do when something broke the rule.
+  # enforce => will reject the manifest
+  # audit => will allow the manifest, but it will be logged
+  validationFailureAction: enforce
+  rules:
+  - name: check-for-labels
+    match:
+      resources:
+        kinds:
+        - Deployment
+    validate:
+      # You can custom error message here
+      message: "Where's label 'kyverno.dok8s.wowza/label-needed'? YOU SHALL NOT PASS!"
+      pattern:
+        # This is same structure as in your deployment manifest file
+        metadata:
+          labels:
+            kyverno.dok8s.wowza/label-needed: "?*"
